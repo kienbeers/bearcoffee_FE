@@ -16,7 +16,13 @@ const LoginService = (username, password) => {
 
     fetch("http://localhost:8080/auth/login", requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result => {
+            console.log("res", JSON.parse(result).data.roles)
+            if (JSON.parse(result).data.roles[0].role === "ADMIN") {
+                window.location.href = '/admin';
+            }
+        }
+        )
         .catch(error => console.log('error', error));
 }
 export default LoginService;
